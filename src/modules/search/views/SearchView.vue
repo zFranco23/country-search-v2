@@ -2,21 +2,21 @@
     <div class="home__container">
         <div class="home__actions">
             <Searchbar @input-change="handleInputChange"/>
-            <!-- <Filter @updateRegion="handleRegionChange" :selectedRegion="region" /> -->
+            <RegionFilter />
         </div>
         <div v-if="isLoading" class="container_spinner">
             <Loader />
         </div>
-        <!-- <div v-else-if="countries && countries.length" class="home__countries">
+        <div v-else-if="countries.length" class="home__countries">
             <div class="countries__list">
                 <div v-for="(c) in countries.slice(0, 8)" :key="c.name.common" class="country__container-card">
-                    <CardCountry :country="c" />
+                    <CountryCard :country="c" />
                 </div>
             </div>
         </div>
         <div v-else>
             <h1 class="countries__disclaimer">No results.</h1>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -25,10 +25,12 @@ import { storeToRefs } from 'pinia';
 import Searchbar from '../components/Searchbar.vue';
 import { useSearchStore } from '../stores/search';
 import Loader from '../../../components/Loader.vue';
+import RegionFilter from '../components/RegionFilter.vue';
+import CountryCard from '../../common/components/country-card/CountryCard.vue';
 
 const searchStore = useSearchStore()
 
-const { isLoading} = storeToRefs(searchStore)
+const { isLoading, countries } = storeToRefs(searchStore)
 
 const handleInputChange = (term: string) => {
     let path = '';
@@ -41,58 +43,6 @@ const handleInputChange = (term: string) => {
     searchStore.getCountries(path)
 }
 
-// import { mapState } from 'vuex'
-// import Searcher from "../components/Searcher.vue";
-// import Filter from "../components/Filter.vue";
-// import CardCountry from "../components/CardCountry.vue";
-
-// import LoaderSpinner from "../components/LoaderSpinner.vue";
-// import Searchbar from '../components/Searchbar.vue';
-
-// export default {
-//     components: {
-//     Searcher,
-//     Filter,
-//     CardCountry,
-//     LoaderSpinner
-// },
-//     data() {
-//         return {
-//             searchInput: '',
-//         }
-//     },
-//     methods: {
-//         handleInputChange(val) {
-//             this.searchInput = val;
-//         },
-//         handleRegionChange(val) {
-//             this.region = val.s;
-//             this.$store.commit('countries/updateRegion',val.s);
-//         }
-//     },
-//     watch: {
-//         searchInput(curr, prev) {
-//             let path = '';
-//             if (curr.length === 0) {
-//                 path= '/all'
-//             }else{
-//                 path = `/name/${curr}`
-//             }
-//             this.$store.dispatch('countries/fetchCountries', path);
-//         },
-//         region(curr) {
-//             let path = '';
-//             if (curr.length === 0) return;
-//             path = `/region/${curr}`
-//             this.$store.dispatch('countries/fetchCountries', path);
-//         }
-//     },
-//     computed: mapState({
-//         countries: ({ countries }) => countries.countries,
-//         isFetchingCountries: ({ countries }) => countries.isFetchingCountries,
-//         region : ({ countries }) => countries.region,
-//     })
-// }
 </script>
 
 <style>
@@ -123,11 +73,8 @@ const handleInputChange = (term: string) => {
 }
 
 .countries__list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 16px;
-    flex-direction: row;
-    width: 100%;
 }
 
 .container_spinner {
@@ -138,8 +85,8 @@ const handleInputChange = (term: string) => {
 }
 
 @media (min-width : 600px){
-    .country__container-card {
-        width: calc(50% - 16px);
+    .countries__list{
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -148,14 +95,14 @@ const handleInputChange = (term: string) => {
         align-items: center;
         flex-direction: row;
     }
-    .country__container-card {
-        width: calc(33.3% - 16px);
+    .countries__list{
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (min-width : 992px) {
-    .country__container-card {
-        width: calc(25% - 16px);
+    .countries__list{
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 </style>
