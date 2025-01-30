@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
+import Navigation from './components/Navigation.vue';
 
 </script>
 
 <template>
   <div class="app_container">
-    <!-- <NavBar /> -->
+    <Navigation />
     <div class="content_container">
       <RouterView />
     </div>
   </div>
 </template>
 
-<style scoped>
+<style>
 
 .app_container {
   display: flex;
@@ -35,7 +36,7 @@ header {
 
 a,
 .green {
-  text-decoration: none;
+  text-decoration: none!important;
   color: hsla(160, 100%, 37%, 1);
   transition: 0.4s;
 }
