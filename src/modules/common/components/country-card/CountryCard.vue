@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'country', params: { countryCode: country.cca3 } }" class="card">
+    <RouterLink :to="`/country/${country.cca3}`" class="card">
       <div class="card__country">
         <img :src="country.flags.svg" class="flag__country" />
         <div class="card__content">
@@ -9,10 +9,11 @@
           <h4 class="card__info">Population : <span>{{ country.population.toLocaleString() }}</span></h4>
         </div>
       </div>
-    </router-link>
+    </RouterLink>
   </template>
   
   <script  setup lang="ts">
+import { RouterLink } from 'vue-router';
 import type { MiniCountry } from '../../../../types';
 
 const { country} = defineProps<{

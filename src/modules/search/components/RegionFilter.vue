@@ -1,21 +1,24 @@
 <template>
-    <div class="region-filter_">
-      <div class="filter" @click="toggleFilter">
-        {{ hasSelectedOneRegion ? hasSelectedOneRegion.name : 'Filter by region' }}
-      </div>
-      <div class="filter_options" v-if="isOpen">
-        <div :class="['filter_option', hasSelectedOneRegion && hasSelectedOneRegion.name === c.name ? 'bold' : '']"
-          v-for="(c, idx) in DEFAULT_REGIONS" :key="`c-${idx}`" @click="handleSelect(c)">
-          {{ c.name }}
+    <div class="region-filter__container">
+        <p class="region-filter__title">Region</p>
+        <div class="region-filter">
+            <div class="filter" @click="toggleFilter">
+              {{ hasSelectedOneRegion ? hasSelectedOneRegion.name : 'Filter by region' }}
+            </div>
+            <div class="filter_options" v-if="isOpen">
+              <div :class="['filter_option', hasSelectedOneRegion && hasSelectedOneRegion.name === c.name ? 'bold' : '']"
+                v-for="(c, idx) in DEFAULT_REGIONS" :key="`c-${idx}`" @click="handleSelect(c)">
+                {{ c.name }}
+              </div>
+            </div>
         </div>
-      </div>
     </div>
   </template>
   
   <script setup lang="ts">
 
   const {getCountries} = useSearchStore()
-  
+
   interface Region {
     name: string;
     region: string;
@@ -53,36 +56,21 @@
     getCountries(`/region/${value}`)
   }
   
-//   export default {
-//     created() {
-//       this.continentsArr = continentsArr;
-//     },
-//     data() {
-//       return {
-//         open: false
-//       }
-//     },
-//     props: {
-//       selectedRegion: String,
-//     },
-//     methods: {
-//       handleSelect(opt) {
-//         this.$emit('updateRegion', opt);
-//         this.open = false;
-//       },
-//       handleToggle() {
-//         this.open = !this.open;
-//       }
-//     },
-//     computed: {
-//       hasSelectedOneRegion() {
-//         return continentsArr.find(el => el.s === this.selectedRegion);
-//       }
-//     }
-//   }
+
   </script>
   
   <style scoped>
+
+  .region-filter__container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .region-filter__title {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
   .region-filter {
     position: relative;
     height: fit-content;

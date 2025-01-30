@@ -15,7 +15,7 @@
             </div>
         </div>
         <div v-else>
-            <h1 class="countries__disclaimer">No results.</h1>
+            <h1 class="countries__disclaimer">No results related to that term</h1>
         </div>
     </div>
 </template>
@@ -27,6 +27,7 @@ import { useSearchStore } from '../stores/search';
 import Loader from '../../../components/Loader.vue';
 import RegionFilter from '../components/RegionFilter.vue';
 import CountryCard from '../../common/components/country-card/CountryCard.vue';
+import { onMounted } from 'vue';
 
 const searchStore = useSearchStore()
 
@@ -43,6 +44,10 @@ const handleInputChange = (term: string) => {
     searchStore.getCountries(path)
 }
 
+
+onMounted(() => {
+    searchStore.getCountries('/all') 
+})
 </script>
 
 <style>
@@ -58,7 +63,7 @@ const handleInputChange = (term: string) => {
 }
 
 .home__countries {
-    padding: 8px;
+    padding: 8px 0;
     margin-top: 2rem;
 }
 

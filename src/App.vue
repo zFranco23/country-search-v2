@@ -1,23 +1,66 @@
 <script setup lang="ts">
-import SearchView from './modules/search/views/SearchView.vue';
+import { RouterView } from 'vue-router';
 
 </script>
 
 <template>
-  <SearchView /> 
+  <div class="app_container">
+    <!-- <NavBar /> -->
+    <div class="content_container">
+      <RouterView />
+    </div>
+  </div>
 </template>
 
 <style scoped>
+
+.app_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.content_container {
+  padding: 0 2rem;
+}
+
+
+header {
+  line-height: 1.5;
+}
+
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+  display: block;
+  margin: 0 auto 2rem;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  header {
+    display: flex;
+    place-items: center;
+    padding-right: calc(var(--section-gap) / 2);
+  }
+
+  header .wrapper {
+    display: flex;
+    place-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    margin: 0 2rem 0 0;
+  }
 }
 </style>

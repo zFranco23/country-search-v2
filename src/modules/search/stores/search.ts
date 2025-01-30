@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { ref } from "vue"
-import countriesService from "../services/countries"
+import countriesService from "../../common/services/countries"
 import type { MiniCountry } from "../../../types"
 
 export const useSearchStore = defineStore('counter', () => {
