@@ -36,7 +36,7 @@ const { country} = defineProps<{
   }
   
   .card__country {
-    height: 420px;
+    height: 100%;
     max-width: 100%;
     overflow-x: hidden;
     border-radius: 10px;
