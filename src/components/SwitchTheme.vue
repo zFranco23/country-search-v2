@@ -1,6 +1,6 @@
 <template>
     <div class="switch">
-        <input type="checkbox" :checked="isDark" class="switch__input" id="Switch" @change="handleUserTheme">
+        <input type="checkbox" :checked="!isDark" class="switch__input" id="Switch" @change="handleUserTheme">
         <label class="switch__label" for="Switch">
             <span class="switch__indicator"></span>
             <span class="switch__decoration"></span>
